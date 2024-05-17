@@ -1,0 +1,15 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.ZuffFinalyear" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/green</item>
+        <item name="android:colorBackground">@color/light_colorBackground</item>
+        <item name="colorError">@color/light_colorError</item>
+        <item name="colorSurface">@color/light_colorSurface</item>
+        <item name="colorSecondary">@color/light_colorSecondary</item>
+        <item name="colorTertiary">@color/light_colorTertiary</item>
+        <item name="colorPrimaryVariant">@color/green</item>
+        <item name="cursorColor">@color/black</item>
+    </style>
+    <style name="Theme.ZuffFinalyear" parent="Base.Theme.ZuffFinalyear" />
+</resources>

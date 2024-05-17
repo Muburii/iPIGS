@@ -1,0 +1,26 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/light_colorBackground"
+    android:layout_width="match_parent"
+    android:layout_gravity="top"
+    android:layout_height="match_parent">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="@color/green"
+        app:cardCornerRadius="20dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imageIcon"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/homepage"
+            android:contentDescription="@string/home_icon"/>
+    </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</ScrollView>

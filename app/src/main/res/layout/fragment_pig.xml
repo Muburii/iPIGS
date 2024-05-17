@@ -1,0 +1,63 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_colorBackground">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/autoCompleteTextInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        app:boxStrokeColor="@color/green"
+        app:boxStrokeWidth="1dp"
+        android:hint="@string/pig_breeds"
+        app:hintTextColor="@color/green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pig_breeds"
+            android:inputType="none"
+            android:backgroundTint="@color/light_colorBackground"
+            android:textColor="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/autoCompleteTextInputLayout"
+        android:background="@color/light_colorBackground">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvpigs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:textColor="@color/light_colorBackground"
+        android:layout_gravity="bottom|right|center_vertical|center_horizontal|center|end"
+        android:id="@+id/fabAddpig"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/Additions"
+        android:contentDescription="@string/add_pig"
+        android:backgroundTint="@color/green"
+        app:icon="@drawable/baseline_add_24"
+        app:iconTint="@color/light_colorBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,39 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:title="@string/home" />
+
+    <item
+        android:id="@+id/pigsFragment"
+        android:title="@string/Pigs" />
+
+    <item
+        android:id="@+id/feedsFragment"
+        android:title="@string/Feeds" />
+
+    <item
+        android:id="@+id/eventsFragment"
+        android:title="@string/Events" />
+
+    <item
+        android:id="@+id/transactionFragment"
+        android:title="@string/Transaction" />
+
+    <item
+        android:id="@+id/setupFragment"
+        android:title="@string/Farm_setup" />
+
+    <item
+        android:id="@+id/reportFragment"
+        android:title="@string/Reports" />
+
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:title="@string/logout" />
+        </menu>
+    </item>
+</menu>
