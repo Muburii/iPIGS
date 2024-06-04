@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/light_colorBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Container for breeding insights -->
+        <LinearLayout
+            android:id="@+id/breedingInsightsContainer"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </LinearLayout>
+
+        <!-- Heading Section for Upcoming Events -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/green"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/upcomingEventsHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/upcoming_events"
+                android:textColor="@color/light_colorBackground"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:paddingBottom="8dp"/>
+        </LinearLayout>
+
+        <!-- RecyclerView for Upcoming Events -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/upcomingEventsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/light_colorBackground"
+            android:padding="8dp"/>
+
+        <!-- Heading Section for Past Events -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/green"
+            android:padding="8dp">
+            <TextView
+                android:id="@+id/pastEventsHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/past_events"
+                android:textColor="@color/light_colorBackground"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:paddingBottom="8dp"/>
+        </LinearLayout>
+        <!-- RecyclerView for Past Events -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/pastEventsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/light_colorBackground"
+            android:padding="8dp"/>
+    </LinearLayout>
+</ScrollView>

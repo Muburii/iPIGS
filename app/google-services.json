@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "943075505850",
+    "project_id": "zufffinalyear",
+    "storage_bucket": "zufffinalyear.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943075505850:android:f3d7f0013a020e7e0e7483",
+        "android_client_info": {
+          "package_name": "com.example.zufffinalyear"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVzD_P1AjbiIVvff8NkwUyZJ5YONlVVRY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
