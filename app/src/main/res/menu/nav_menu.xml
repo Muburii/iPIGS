@@ -22,7 +22,7 @@
         android:title="@string/Transaction" />
 
     <item
-        android:id="@+id/setupFragment"
+        android:id="@+id/pigStallsFragment"
         android:title="@string/Farm_setup" />
 
     <item

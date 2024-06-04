@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
 
@@ -26,19 +27,20 @@
             android:id="@+id/action_eventsFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
-
     <fragment
         android:id="@+id/pigsFragment"
         android:name="com.example.zufffinalyear.fragments.PigFragment"
-        android:label="Pigs" >
+        android:label="Pigs">
         <action
             android:id="@+id/action_pigsFragment_to_addpigFragment"
-            app:destination="@id/addpigFragment" />
+            app:destination="@id/addpigFragment"/>
         <action
             android:id="@+id/action_pigsFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"/>
+        <action
+            android:id="@+id/action_pigsFragment_to_profileFragment"
+            app:destination="@id/profileFragment"/>
     </fragment>
-
     <fragment
         android:id="@+id/reportFragment"
         android:name="com.example.zufffinalyear.fragments.ReportFragment"
@@ -69,9 +71,40 @@
     <fragment
         android:id="@+id/addpigFragment"
         android:name="com.example.zufffinalyear.fragments.AddpigFragment"
-        android:label="fragment_addpig" >
+        android:label="Add Pig" >
         <action
             android:id="@+id/action_addpigFragment_to_pigsFragment"
-            app:destination="@id/pigsFragment" />
+            app:destination="@id/pigsFragment"/>
+        <action
+            android:id="@+id/action_addpigFragment_to_profileFragment"
+            app:destination="@id/pigdetailsFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.zufffinalyear.fragments.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_pigsFragment"
+            app:destination="@id/pigsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_addpigFragment"
+            app:destination="@id/addpigFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/pigdetailsFragment"
+        android:name="com.example.zufffinalyear.fragments.PigdetailsFragment"
+        android:label="Pig Details">
+    </fragment>
+    <fragment
+        android:id="@+id/pigStallsFragment"
+        android:name="com.example.zufffinalyear.fragments.PigStallsFragment"
+        android:label="Pig Stalls">
+        <action
+            android:id="@+id/action_pigStallsFragment_to_pigsFragment"
+            app:destination="@id/pigsFragment">
+        </action>
+    </fragment>
+
 </navigation>

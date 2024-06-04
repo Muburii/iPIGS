@@ -3,24 +3,80 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/light_colorBackground"
     android:layout_width="match_parent"
-    android:layout_gravity="top"
-    android:layout_height="match_parent">
-    <androidx.cardview.widget.CardView
+    android:layout_height="match_parent"
+    android:layout_gravity="top">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:cardBackgroundColor="@color/green"
-        app:cardCornerRadius="20dp">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/imageIcon"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:src="@drawable/homepage"
-            android:contentDescription="@string/home_icon"/>
+        android:orientation="vertical">
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:cardBackgroundColor="@color/green"
+            app:cardCornerRadius="20dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
+                <ImageView
+                    android:id="@+id/imageIcon"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/homepage"
+                    android:contentDescription="@string/home_icon"
+                    android:layout_gravity="center_vertical"/>
+                <LinearLayout
+                    android:id="@+id/breedCountLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    android:layout_marginStart="20dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/button1"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:textColor="@color/green"
+                    android:text="@string/Feeds"
+                    android:layout_margin="5dp"/>
+                <Button
+                    android:id="@+id/button2"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="@string/finance"
+                    android:textColor="@color/green"/>
+                <Button
+                    android:id="@+id/button3"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_margin="5dp"
+                    android:text="@string/health"
+                    android:textColor="@color/green"/>
+                <Button
+                    android:id="@+id/button4"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_margin="5dp"
+                    android:text="@string/Events"
+                    android:textColor="@color/green"/>
+            </LinearLayout>
+        </HorizontalScrollView>
     </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
 </ScrollView>

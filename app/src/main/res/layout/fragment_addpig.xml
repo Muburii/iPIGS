@@ -9,12 +9,17 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/autoCompleteTextInputLayout"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_margin="15dp"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            app:helperTextEnabled="true"
+            android:hint="@string/pig_breeds"
+            android:textColorHint="@color/black"
+            app:errorEnabled="true"
+            app:errorTextColor="@color/light_colorError"
+            app:errorTextAppearance="@color/light_colorError"
             app:boxStrokeColor="@color/green"
             app:boxStrokeWidth="1dp"
             app:hintTextColor="@color/green"
@@ -22,100 +27,132 @@
             <AutoCompleteTextView
                 android:id="@+id/autoCompleteTextView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/pig_breeds"
+                android:layout_height="50dp"
                 android:inputType="none"
                 android:backgroundTint="@color/light_colorBackground"
                 android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tagNoInputLayout"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_margin="15dp"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
             android:hint="@string/Tag_no"
             android:textColorHint="@color/black"
             app:hintTextColor="@color/green"
             app:boxStrokeColor="@color/green"
+            app:errorEnabled="true"
+            app:errorTextColor="@color/light_colorError"
+            app:errorTextAppearance="@color/light_colorError"
             app:boxStrokeWidth="1dp"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
             app:cursorColor="@color/black">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tagNoEditText"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/black"
                 app:strokeColor="@color/green"/>
         </com.google.android.material.textfield.TextInputLayout>
-
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/autoCompletegenderTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            app:boxStrokeColor="@color/green"
+            app:boxStrokeWidth="1dp"
+            android:hint="@string/gender"
+            android:textColorHint="@color/black"
+            app:errorEnabled="true"
+            app:errorTextColor="@color/light_colorError"
+            app:errorTextAppearance="@color/light_colorError"
+            app:hintTextColor="@color/green"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+            <AutoCompleteTextView
+                android:id="@+id/autoCompletegenderTextView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/light_colorBackground"
+                android:inputType="none"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/autoCompletepiggroupTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            app:boxStrokeColor="@color/green"
+            app:boxStrokeWidth="1dp"
+            android:hint="@string/pig_group"
+            app:errorEnabled="true"
+            android:textColorHint="@color/black"
+            app:errorTextColor="@color/light_colorError"
+            app:errorTextAppearance="@color/light_colorError"
+            app:hintTextColor="@color/green"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+            <AutoCompleteTextView
+                android:id="@+id/autoCompletepiggroupTextView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/light_colorBackground"
+                android:inputType="none"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/litterLayout"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_margin="15dp"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
             android:hint="@string/Litter_no"
             android:textColorHint="@color/black"
             app:hintTextColor="@color/green"
             app:boxStrokeColor="@color/green"
+            app:errorEnabled="true"
+            app:errorTextColor="@color/light_colorError"
+            app:errorTextAppearance="@color/light_colorError"
             app:boxStrokeWidth="1dp"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
             app:cursorColor="@color/black">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/litterEditText"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/black"
                 app:strokeColor="@color/green"/>
         </com.google.android.material.textfield.TextInputLayout>
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/weightInputLayout"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_margin="15dp"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
             android:hint="@string/weight"
             android:textColorHint="@color/black"
             app:hintTextColor="@color/green"
             app:boxStrokeColor="@color/green"
+            app:errorEnabled="true"
+            app:errorTextColor="@color/light_colorError"
+            app:errorTextAppearance="@color/light_colorError"
             app:boxStrokeWidth="1dp"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
             app:cursorColor="@color/black">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/weightEditText"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/black"
                 app:strokeColor="@color/green"/>
         </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/autoCompletegenderTextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_margin="15dp"
-            app:boxStrokeColor="@color/green"
-            app:boxStrokeWidth="1dp"
-            app:hintTextColor="@color/green"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
-            <AutoCompleteTextView
-                android:id="@+id/autoCompletegenderTextView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="@color/light_colorBackground"
-                android:inputType="none"
-                android:text="@string/gender"
-                android:textColor="@color/black" />
-        </com.google.android.material.textfield.TextInputLayout>
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/dateofbirthInputLayout"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_margin="15dp"
+            app:errorEnabled="true"
+            app:errorTextColor="@color/light_colorError"
+            app:errorTextAppearance="@color/light_colorError"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
             android:hint="@string/date_of_birth"
             android:textColorHint="@color/black"
             app:hintTextColor="@color/green"
@@ -126,18 +163,20 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/dateofbirthEditText"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/black"
                 app:strokeColor="@color/green"/>
         </com.google.android.material.textfield.TextInputLayout>
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/dateofentryInputLayout"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_margin="15dp"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
             android:hint="@string/Date_of_entry_on_the_farm"
+            app:errorEnabled="true"
+            app:errorTextColor="@color/light_colorError"
+            app:errorTextAppearance="@color/light_colorError"
             android:textColorHint="@color/black"
             app:hintTextColor="@color/green"
             app:boxStrokeColor="@color/green"
@@ -147,18 +186,42 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/dateofentryEditText"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/black"
                 app:strokeColor="@color/green"/>
         </com.google.android.material.textfield.TextInputLayout>
-
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/autoCompletehowpigwasobtanedTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            app:boxStrokeColor="@color/green"
+            app:boxStrokeWidth="1dp"
+            android:hint="@string/how_pig_was_obtained"
+            app:errorEnabled="true"
+            android:textColorHint="@color/black"
+            app:errorTextColor="@color/light_colorError"
+            app:errorTextAppearance="@color/light_colorError"
+            app:hintTextColor="@color/green"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+            <AutoCompleteTextView
+                android:id="@+id/autoCompletehowpigwasobtanedtextView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/light_colorBackground"
+                android:inputType="none"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/motherstagInputLayout"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_margin="15dp"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
             android:hint="@string/Mothers_tag_no"
+            app:errorEnabled="true"
+            app:errorTextColor="@color/light_colorError"
+            app:errorTextAppearance="@color/light_colorError"
             android:textColorHint="@color/black"
             app:hintTextColor="@color/green"
             app:boxStrokeColor="@color/green"
@@ -168,27 +231,28 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/motherstagEditText"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/black"
                 app:strokeColor="@color/green"/>
         </com.google.android.material.textfield.TextInputLayout>
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/fathersstagInputLayout"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_margin="15dp"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
             android:hint="@string/Fathers_tag_no"
+            app:errorEnabled="true"
+            app:errorTextColor="@color/light_colorError"
+            app:errorTextAppearance="@color/light_colorError"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/green"
             app:cursorColor="@color/black"
             app:hintTextColor="@color/green">
-
         <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/fatherstagEditText"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>

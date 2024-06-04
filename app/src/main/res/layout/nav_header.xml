@@ -15,6 +15,7 @@
         android:src="@drawable/pigs"
         android:contentDescription="@string/home_icon"/>
     <TextView
+        android:id="@+id/farm_name_text"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/black"
@@ -24,6 +25,7 @@
         android:layout_marginTop="10dp"
         android:text="@string/farm_name"/>
     <TextView
+        android:id="@+id/email_text"
         android:textSize="14sp"
         android:textColor="@color/black"
         android:layout_gravity="center"

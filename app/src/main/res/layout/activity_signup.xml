@@ -7,6 +7,7 @@
     android:background="@color/yellow"
     android:gravity="center"
     android:orientation="vertical">
+
     <ImageView
         android:id="@+id/imageIcon"
         android:layout_width="70dp"
@@ -25,6 +26,7 @@
         android:textColor="@color/black"
         android:textSize="40sp"
         android:textStyle="bold"/>
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,46 +35,52 @@
         android:elevation="10dp"
         android:padding="16dp"
         app:cardCornerRadius="30dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
             android:orientation="vertical">
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/emailInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/email_hint"
                 android:textColorHint="@color/black"
+                android:layout_marginTop="15dp"
                 app:hintTextColor="@color/green"
+                android:padding="10dp"
                 app:boxStrokeColor="@color/black"
-                android:padding="20dp"
                 app:boxStrokeWidth="1dp"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
                 app:cursorColor="@color/black">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/emailEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="50dp"
                     android:inputType="textEmailAddress"
                     android:textColor="@color/black"
                     app:strokeColor="@color/green"/>
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/passwordInputLayout"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/password_hint"
-                android:padding="20dp"
+                android:layout_marginTop="10dp"
                 android:textColorHint="@color/black"
                 app:hintTextColor="@color/green"
                 app:boxStrokeColor="@color/green"
                 app:boxStrokeWidth="1dp"
+                android:padding="10dp"
                 app:cursorColor="@color/black"
                 app:endIconMode="password_toggle"
                 app:endIconTint="@color/black">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/passwordEditText"
                     android:layout_width="match_parent"
@@ -84,46 +92,78 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/confirmpasswordInputLayout"
                 android:layout_width="match_parent"
-                android:layout_height="90dp"
+                android:layout_height="wrap_content"
                 android:hint="@string/confirm_hint"
-                android:padding="20dp"
+                android:layout_marginTop="10dp"
                 android:textColorHint="@color/black"
                 app:hintTextColor="@color/green"
                 app:boxStrokeColor="@color/green"
                 app:boxStrokeWidth="1dp"
                 app:cursorColor="@color/black"
+                android:padding="10dp"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
                 app:endIconMode="password_toggle"
                 app:endIconTint="@color/black">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/confirmpasswordEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
                     android:textColor="@color/black"/>
-
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/armNameInputlayout"
+                android:id="@+id/autoCompleteTextInputLayout"
                 android:layout_width="match_parent"
-                android:layout_height="90dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:boxStrokeColor="@color/green"
+                app:boxStrokeWidth="1dp"
+                android:padding="10dp"
+                app:hintTextColor="@color/green"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="@string/farm_role"
+                    android:inputType="none"
+                    android:backgroundTint="@color/light_colorBackground"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/farmNameInputlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:hint="@string/farm_name"
-                android:padding="20dp"
+                android:layout_marginTop="10dp"
                 android:textColorHint="@color/black"
                 app:hintTextColor="@color/green"
                 app:boxStrokeColor="@color/green"
                 app:boxStrokeWidth="1dp"
+                android:padding="10dp"
                 app:cursorColor="@color/black"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
                 app:endIconTint="@color/black">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/farmNameEdittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
+                    android:inputType="text"
                     android:textColor="@color/black"/>
             </com.google.android.material.textfield.TextInputLayout>
-            <Button
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/welcome"
                 android:layout_width="250dp"
                 android:layout_height="50dp"
@@ -133,10 +173,11 @@
                 android:text="@string/register"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-                android:textStyle="bold"/>
-
+                android:textStyle="bold"
+                app:cornerRadius="0dp"
+                style="@style/Widget.MaterialComponents.Button"/>
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/alreadyregistered"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
