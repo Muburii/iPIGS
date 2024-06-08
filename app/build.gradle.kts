@@ -53,6 +53,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation ("com.jakewharton.threetenabp:threetenabp:1.3.1")
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 }

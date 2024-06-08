@@ -73,8 +73,8 @@ class HomeFragment : Fragment() {
         for ((breed, count) in breedCounts) {
             val textView = TextView(requireContext()).apply {
                 text = getString(R.string.breed_count, breed, count)
-                textSize = 23f
-                setPadding(8, 8, 8, 8)
+                textSize = 18f
+                setPadding(8, 5, 8, 5)
                 setTextColor(resources.getColor(android.R.color.black, null))
                 setTypeface(null, android.graphics.Typeface.BOLD)
             }

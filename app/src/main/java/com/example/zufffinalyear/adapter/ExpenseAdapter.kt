@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.zufffinalyear.R
 import com.example.zufffinalyear.models.Expenseitem
 
-class ExpenseAdapter(private val expenseList: MutableList<Expenseitem>) : RecyclerView.Adapter<ExpenseAdapter.ExpenseViewHolder>() {
+class ExpenseAdapter(val expenseList: MutableList<Expenseitem>) : RecyclerView.Adapter<ExpenseAdapter.ExpenseViewHolder>() {
 
     inner class ExpenseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val descriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView)

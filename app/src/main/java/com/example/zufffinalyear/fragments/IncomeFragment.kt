@@ -22,7 +22,8 @@ class IncomeFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var incomeAdapter: IncomeAdapter
     private val incomeList = mutableListOf<Incomeitem>()
-    private var totalIncome: Float = 0f
+    private var totalIncome: Double = 0.0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,6 +31,7 @@ class IncomeFragment : Fragment() {
         _binding = FragmentIncomeBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         firestore = FirebaseFirestore.getInstance()
@@ -41,16 +43,18 @@ class IncomeFragment : Fragment() {
         }
         setFragmentResultListener("sellResult") { _, bundle ->
             val description = bundle.getString("description", "")
-            val amount = bundle.getFloat("amount")
+            val amount = bundle.getDouble("amount")
             val date = bundle.getString("date", "")
             val tagNo = bundle.getString("tagNo", "")
             addIncomeItem(description, amount, date, tagNo)
         }
     }
+
     override fun onResume() {
         super.onResume()
         fetchIncomeData() // Fetch data when the fragment is visible
     }
+
     private fun fetchIncomeData() {
         val user = auth.currentUser
         val userId = user?.uid
@@ -60,10 +64,10 @@ class IncomeFragment : Fragment() {
                 .get()
                 .addOnSuccessListener { result ->
                     incomeList.clear()
-                    totalIncome = 0f
+                    totalIncome = 0.0
                     for (document in result) {
                         val description = document.getString("description") ?: ""
-                        val amount = document.getDouble("amount")?.toFloat() ?: 0f
+                        val amount = document.getDouble("amount") ?: 0.0
                         val date = document.getString("date") ?: ""
                         val tagNo = document.getString("tagNo") ?: ""
                         val incomeItem = Incomeitem(description, tagNo, amount, date)
@@ -78,16 +82,19 @@ class IncomeFragment : Fragment() {
                 }
         }
     }
+
     @SuppressLint("DefaultLocale")
     private fun updateTotalIncome() {
         binding.totalIncomeTextView.text = String.format("%.2f", totalIncome)
     }
-    private fun addIncomeItem(description: String, amount: Float, date: String, tagNo: String) {
+
+    private fun addIncomeItem(description: String, amount: Double, date: String, tagNo: String) {
         val newItem = Incomeitem(description, tagNo, amount, date)
         incomeAdapter.addIncomeItem(newItem)
         totalIncome += amount
         updateTotalIncome()
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

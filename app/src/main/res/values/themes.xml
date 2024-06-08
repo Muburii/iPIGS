@@ -12,4 +12,9 @@
         <item name="cursorColor">@color/black</item>
     </style>
     <style name="Theme.ZuffFinalyear" parent="Base.Theme.ZuffFinalyear" />
+
+    <!-- Custom style for spinner item text -->
+    <style name="CustomSpinnerItem" parent="Widget.AppCompat.TextView.SpinnerItem">
+        <item name="android:textColor">@color/black</item>
+    </style>
 </resources>

@@ -17,7 +17,7 @@ data class Pigdetails(
     var pigobtained: String = "",
     var reasonForArchiving: String = "",
     var dateOfEvent: String = "",
-    var predictedPrice: Float = 0f,
+    var predictedPrice: Double = 0.0,
     var notes: String = ""
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
@@ -35,7 +35,7 @@ data class Pigdetails(
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?:"",
-        parcel.readFloat()
+        parcel.readDouble()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -53,7 +53,7 @@ data class Pigdetails(
         parcel.writeString(pigobtained)
         parcel.writeString(reasonForArchiving)
         parcel.writeString(dateOfEvent)
-        parcel.writeFloat(predictedPrice)
+        parcel.writeDouble(predictedPrice)
         parcel.writeString(notes)
     }
 
