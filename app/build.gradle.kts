@@ -49,6 +49,8 @@ dependencies {
     implementation(libs.firebase.database)
     implementation(libs.firebase.auth.ktx)
     implementation(libs.firebase.firestore)
+    implementation ("com.google.android.gms:play-services-base:17.6.0")
+    implementation ("com.google.android.gms:play-services-maps:17.0.0")
     implementation(libs.firebase.storage)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

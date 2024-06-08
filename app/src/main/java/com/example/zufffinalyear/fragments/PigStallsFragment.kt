@@ -11,7 +11,10 @@ import com.example.zufffinalyear.adapters.StallAdapter
 import com.example.zufffinalyear.databinding.FragmentPigStallsBinding
 import com.example.zufffinalyear.models.Stalldetails
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class PigStallsFragment : Fragment() {
 
@@ -76,7 +79,7 @@ class PigStallsFragment : Fragment() {
     }
 
     private fun onStallSelected(stall: Stalldetails) {
-        val action = PigStallsFragmentDirections.actionPigStallsFragmentToPigsFragment()
+        val action = PigStallsFragmentDirections.actionPigStallsFragmentToPigsFragment(stall.stallNo)
         findNavController().navigate(action)
     }
 }

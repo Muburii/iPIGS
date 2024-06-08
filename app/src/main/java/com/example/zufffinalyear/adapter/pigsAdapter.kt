@@ -33,11 +33,12 @@ class pigsAdapter(
         return filteredPigList.size
     }
 
-    fun filter(breed: String, group: String) {
-        filteredPigList = pigList.filter {
-            (breed.isEmpty() || breed == "All" || it.pigbreed.equals(breed, ignoreCase = true)) &&
-                    (group.isEmpty() || group == "All" || it.piggroup.equals(group, ignoreCase = true))
-        }.toMutableList()
+    fun filter(breed: String) {
+        filteredPigList = if (breed.isEmpty() || breed == "All") {
+            pigList.toMutableList()
+        } else {
+            pigList.filter { it.pigbreed.equals(breed, ignoreCase = true) }.toMutableList()
+        }
         notifyDataSetChanged()
     }
 

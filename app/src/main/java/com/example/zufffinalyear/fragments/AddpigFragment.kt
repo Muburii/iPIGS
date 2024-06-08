@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.zufffinalyear.R
 import com.example.zufffinalyear.databinding.FragmentAddpigBinding
 import com.example.zufffinalyear.models.AutocompleteValidator
@@ -21,6 +22,7 @@ class AddpigFragment : Fragment() {
     private lateinit var binding: FragmentAddpigBinding
     private lateinit var firestore: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
+    private val args: AddpigFragmentArgs by navArgs()
     private var addedPigDocumentId: String? = null
 
     override fun onCreateView(
@@ -184,6 +186,7 @@ class AddpigFragment : Fragment() {
         }
         return isValid
     }
+
     private fun saveDataToFirestore() {
         val pigdetails = Pigdetails(
             pigbreed = binding.autoCompleteTextView.text.toString(),
@@ -205,8 +208,8 @@ class AddpigFragment : Fragment() {
         if (userId != null) {
             val documentId = pigdetails.tag_no // Use tag_no as the document ID
 
-            firestore.collection("users").document(userId).collection("pigs")
-                .document(documentId) // Set the document ID to tag_no
+            firestore.collection("users").document(userId).collection("stalls").document(args.stallNo)
+                .collection("pigs").document(documentId) // Set the document ID to tag_no
                 .set(pigdetails)
                 .addOnSuccessListener {
                     addedPigDocumentId = documentId
@@ -234,8 +237,8 @@ class AddpigFragment : Fragment() {
     }
 
     private fun navigateToPigFragment() {
-        findNavController().navigate(R.id.action_addpigFragment_to_pigsFragment)
-        findNavController().popBackStack(R.id.addpigFragment, true)
+        val action = AddpigFragmentDirections.actionAddpigFragmentToPigsFragment(args.stallNo)
+        findNavController().navigate(action)
     }
 
     private fun showDatePickerDialog(onDateSet: (String) -> Unit) {

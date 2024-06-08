@@ -6,7 +6,7 @@
         android:title="@string/home" />
 
     <item
-        android:id="@+id/pigsFragment"
+        android:id="@+id/pigStallsFragment"
         android:title="@string/Pigs" />
 
     <item
@@ -22,7 +22,7 @@
         android:title="@string/Transaction" />
 
     <item
-        android:id="@+id/pigStallsFragment"
+        android:id="@+id/setupFragment"
         android:title="@string/Farm_setup" />
 
     <item

@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.zufffinalyear.databinding.FragmentDialogueBinding
 
-class DialogueFragment(private val onConfirm: (Float) -> Unit) : DialogFragment() {
+class DialogueFragment(private val onConfirm: (Double) -> Unit) : DialogFragment() {
 
     private var _binding: FragmentDialogueBinding? = null
     private val binding get() = _binding!!
@@ -37,10 +37,12 @@ class DialogueFragment(private val onConfirm: (Float) -> Unit) : DialogFragment(
         })
 
         binding.buttonConfirm.setOnClickListener {
-            val price = binding.priceEditText.text.toString().toFloatOrNull()
+            val price = binding.priceEditText.text.toString().toDoubleOrNull()
             if (price != null) {
                 onConfirm(price)
                 dismiss()
+            } else {
+                showToast("Please enter a valid price")
             }
         }
 
@@ -52,7 +54,6 @@ class DialogueFragment(private val onConfirm: (Float) -> Unit) : DialogFragment(
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

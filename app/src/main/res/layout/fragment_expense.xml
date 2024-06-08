@@ -8,12 +8,6 @@
     android:gravity="center_vertical"
     tools:context=".fragments.ExpenseFragment">
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/barChart"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_centerHorizontal="true"/>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewExpense"
         android:layout_width="match_parent"
@@ -54,7 +48,5 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
-
     </LinearLayout>
-
 </LinearLayout>

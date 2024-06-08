@@ -13,7 +13,7 @@
     <fragment
         android:id="@+id/feedsFragment"
         android:name="com.example.zufffinalyear.fragments.FeedsFragment"
-        android:label="Feeds" >
+        android:label="Feeds">
         <action
             android:id="@+id/action_feedsFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -22,29 +22,48 @@
     <fragment
         android:id="@+id/eventsFragment"
         android:name="com.example.zufffinalyear.fragments.EventsFragment"
-        android:label="Events" >
+        android:label="Events">
         <action
             android:id="@+id/action_eventsFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/pigStallsFragment"
+        android:name="com.example.zufffinalyear.fragments.PigStallsFragment"
+        android:label="Pig Stalls">
+        <action
+            android:id="@+id/action_pigStallsFragment_to_pigsFragment"
+            app:destination="@id/pigsFragment">
+            <argument
+                android:name="stallNo"
+                app:argType="string" />
+        </action>
+    </fragment>
+
     <fragment
         android:id="@+id/pigsFragment"
         android:name="com.example.zufffinalyear.fragments.PigFragment"
         android:label="Pigs">
+        <argument
+            android:name="stallNo"
+            app:argType="string" />
         <action
             android:id="@+id/action_pigsFragment_to_addpigFragment"
-            app:destination="@id/addpigFragment"/>
-        <action
-            android:id="@+id/action_pigsFragment_to_homeFragment"
-            app:destination="@id/homeFragment"/>
+            app:destination="@id/addpigFragment">
+            <argument
+                android:name="stallNo"
+                app:argType="string" />
+        </action>
         <action
             android:id="@+id/action_pigsFragment_to_profileFragment"
-            app:destination="@id/profileFragment"/>
+            app:destination="@id/profileFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/reportFragment"
         android:name="com.example.zufffinalyear.fragments.ReportFragment"
-        android:label="Reports" >
+        android:label="Reports">
         <action
             android:id="@+id/action_reportFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -53,7 +72,7 @@
     <fragment
         android:id="@+id/setupFragment"
         android:name="com.example.zufffinalyear.fragments.SetupFragment"
-        android:label="Setup" >
+        android:label="Setup">
         <action
             android:id="@+id/action_setupFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -62,7 +81,7 @@
     <fragment
         android:id="@+id/transactionFragment"
         android:name="com.example.zufffinalyear.fragments.TransactionFragment"
-        android:label="Transaction" >
+        android:label="Transaction">
         <action
             android:id="@+id/action_transactionFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -71,10 +90,13 @@
     <fragment
         android:id="@+id/addpigFragment"
         android:name="com.example.zufffinalyear.fragments.AddpigFragment"
-        android:label="Add Pig" >
+        android:label="Add Pig">
+        <argument
+            android:name="stallNo"
+            app:argType="string" />
         <action
             android:id="@+id/action_addpigFragment_to_pigsFragment"
-            app:destination="@id/pigsFragment"/>
+            app:destination="@id/pigsFragment" />
         <action
             android:id="@+id/action_addpigFragment_to_profileFragment"
             app:destination="@id/pigdetailsFragment" />
@@ -84,27 +106,19 @@
         android:id="@+id/profileFragment"
         android:name="com.example.zufffinalyear.fragments.ProfileFragment"
         android:label="Profile"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_pigsFragment"
             app:destination="@id/pigsFragment" />
         <action
             android:id="@+id/action_profileFragment_to_addpigFragment"
-            app:destination="@id/addpigFragment"/>
+            app:destination="@id/addpigFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/pigdetailsFragment"
         android:name="com.example.zufffinalyear.fragments.PigdetailsFragment"
         android:label="Pig Details">
-    </fragment>
-    <fragment
-        android:id="@+id/pigStallsFragment"
-        android:name="com.example.zufffinalyear.fragments.PigStallsFragment"
-        android:label="Pig Stalls">
-        <action
-            android:id="@+id/action_pigStallsFragment_to_pigsFragment"
-            app:destination="@id/pigsFragment">
-        </action>
     </fragment>
 
 </navigation>

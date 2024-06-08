@@ -1,18 +1,17 @@
 package com.example.zufffinalyear.fragments
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zufffinalyear.adapter.IncomeAdapter
 import com.example.zufffinalyear.databinding.FragmentIncomeBinding
 import com.example.zufffinalyear.models.Incomeitem
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 
 class IncomeFragment : Fragment() {
 
@@ -41,18 +40,7 @@ class IncomeFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = incomeAdapter
         }
-        setFragmentResultListener("sellResult") { _, bundle ->
-            val description = bundle.getString("description", "")
-            val amount = bundle.getDouble("amount")
-            val date = bundle.getString("date", "")
-            val tagNo = bundle.getString("tagNo", "")
-            addIncomeItem(description, amount, date, tagNo)
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        fetchIncomeData() // Fetch data when the fragment is visible
+        fetchIncomeData()
     }
 
     private fun fetchIncomeData() {
@@ -66,33 +54,39 @@ class IncomeFragment : Fragment() {
                     incomeList.clear()
                     totalIncome = 0.0
                     for (document in result) {
-                        val description = document.getString("description") ?: ""
-                        val amount = document.getDouble("amount") ?: 0.0
-                        val date = document.getString("date") ?: ""
-                        val tagNo = document.getString("tagNo") ?: ""
-                        val incomeItem = Incomeitem(description, tagNo, amount, date)
-                        incomeList.add(incomeItem)
-                        totalIncome += amount
+                        document.reference.collection("incomeitems").get()
+                            .addOnSuccessListener { items ->
+                                processIncomeItems(items)
+                            }
+                            .addOnFailureListener { e ->
+                                // Handle any errors
+                                e.printStackTrace()
+                            }
                     }
-                    incomeAdapter.notifyDataSetChanged()
-                    updateTotalIncome()
                 }
-                .addOnFailureListener {
+                .addOnFailureListener { e ->
                     // Handle any errors
+                    e.printStackTrace()
                 }
         }
     }
 
-    @SuppressLint("DefaultLocale")
-    private fun updateTotalIncome() {
-        binding.totalIncomeTextView.text = String.format("%.2f", totalIncome)
+    private fun processIncomeItems(items: QuerySnapshot) {
+        for (item in items) {
+            val description = item.getString("description") ?: ""
+            val amount = item.getDouble("amount") ?: 0.0
+            val date = item.getString("date") ?: ""
+            val tagNo = item.getString("tagNo") ?: ""
+            val incomeItem = Incomeitem(description, tagNo, amount, date)
+            incomeList.add(incomeItem)
+            totalIncome += amount
+        }
+        incomeAdapter.notifyDataSetChanged()
+        updateTotalIncome()
     }
 
-    private fun addIncomeItem(description: String, amount: Double, date: String, tagNo: String) {
-        val newItem = Incomeitem(description, tagNo, amount, date)
-        incomeAdapter.addIncomeItem(newItem)
-        totalIncome += amount
-        updateTotalIncome()
+    private fun updateTotalIncome() {
+        binding.totalIncomeTextView.text = String.format("%.2f", totalIncome)
     }
 
     override fun onDestroyView() {

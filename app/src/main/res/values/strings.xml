@@ -25,19 +25,19 @@
         <item>Dead Pig</item>
         <item>Other</item>
     </string-array>
-        <string-array name="filter_options">
-            <item>Last 7 Days</item>
-            <item>Current Month</item>
-            <item>Previous Month</item>
-            <item>Last 3 Months</item>
-            <item>Last 6 Months</item>
-            <item>Last 12 Months</item>
-            <item>Current Year</item>
-            <item>Previous Year</item>
-            <item>Last 3 Years</item>
-            <item>Last 6 Years</item>
-            <item>All Time</item>
-        </string-array>
+    <string-array name="filter_options">
+        <item>Last 7 Days</item>
+        <item>Current Month</item>
+        <item>Previous Month</item>
+        <item>Last 3 Months</item>
+        <item>Last 6 Months</item>
+        <item>Last 12 Months</item>
+        <item>Current Year</item>
+        <item>Previous Year</item>
+        <item>Last 3 Years</item>
+        <item>Last 6 Years</item>
+        <item>All Time</item>
+    </string-array>
     <string-array name="gender_list">
         <item>Male</item>
         <item>Female</item>
@@ -48,7 +48,7 @@
     </string-array>
     <string-array name="pig_was_obtained_list">
         <item>Born on farm</item>
-        <item>purchased</item>
+        <item>Purchased</item>
         <item>Other</item>
     </string-array>
     <string-array name="pig_group_list">
@@ -63,26 +63,26 @@
         <item>Not Lactating</item>
     </string-array>
     <string name="pig_group">Pig Group</string>
-    <string name="already_registered">Already Registered , Sign In !"</string>
+    <string name="already_registered">Already Registered, Sign In!</string>
     <string name="username_hint">Username</string>
-    <string name="no_account_message">Don\'t have an account?Register here.</string>
+    <string name="no_account_message">Don/t have an account? Register here.</string>
     <string name="ipigs">Ipigs</string>
     <string name="save">Save pig</string>
     <string name="delete">Delete</string>
     <string name="name">Name</string>
     <string name="Tag_no">Tag no.*</string>
     <string name="Litter_no">Litter No.</string>
-    <string name="Mothers_tag_no">Mother\'s Tag No</string>
-    <string name="Fathers_tag_no">Father\'s Tag No</string>
+    <string name="Mothers_tag_no">Mother/s Tag No</string>
+    <string name="Fathers_tag_no">Father/s Tag No</string>
     <string name="weight">Weight(kg)</string>
-    <string name="pigs_offspring">Pig\'s offspring</string>
+    <string name="pigs_offspring">Pig/s offspring</string>
     <string name="date_of_birth">Date of birth</string>
     <string name="Date_of_entry_on_the_farm">Date of entry on the farm.</string>
     <string name="Pigs">Pigs</string>
     <string name="Feeds">Feeds</string>
     <string name="Events">Events</string>
     <string name="Transaction">Transaction</string>
-    <string name="Farm_setup">Farm_setup</string>
+    <string name="Farm_setup">Farm setup</string>
     <string name="Reports">Reports</string>
     <string name="Additions">Additions</string>
     <string name="Reductions">Reductions</string>
@@ -91,11 +91,10 @@
     <string name="logout">Logout</string>
     <string name="open_nav">Open Navigation Drawer</string>
     <string name="close_nav">Close Navigation Drawer</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_pig">Add pig</string>
     <string name="tag_no">Tag No</string>
-    <string name="farm_name">Farm Name</string>
+    <string name="farm_name">Farm Name: %s</string>
     <string name="forgotpassword">Forgot password?</string>
     <string name="income">INCOME</string>
     <string name="expense">EXPENSE</string>
@@ -104,8 +103,8 @@
     <string name="colon">:</string>
     <string name="sell">Sell</string>
     <string name="remove">Remove</string>
-    <string name="Currentpigprice"> Current Market Price(Ksh)</string>
-    <string name="Predictedpigprice"> Predicted Market Price(Ksh)</string>
+    <string name="Currentpigprice">Current Market Price (Ksh)</string>
+    <string name="Predictedpigprice">Predicted Market Price (Ksh)</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
     <string name="Description">Description</string>

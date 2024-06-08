@@ -30,6 +30,7 @@ class PigFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var pigsAdapter: pigsAdapter
     private val pigList = mutableListOf<Pigdetails>()
+    private var stallId: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +45,8 @@ class PigFragment : Fragment() {
 
         firestore = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
+        stallId = arguments?.getString("stallNo") // Get stallNo from arguments
+
         setupRecyclerView()
         fetchPigsData()
 
@@ -53,34 +56,16 @@ class PigFragment : Fragment() {
         binding.autoCompleteTextView.setAdapter(pigBreedsAdapter)
         binding.autoCompleteTextView.setOnItemClickListener { parent, view, position, id ->
             val selectedBreed = parent.getItemAtPosition(position) as String
-            val selectedGroup = binding.autoCompletepiggroupTextView.text.toString()
-            if (selectedBreed == "All" && selectedGroup == "All") {
+            if (selectedBreed == "All") {
                 pigsAdapter.showAll()
             } else {
-                pigsAdapter.filter(selectedBreed, selectedGroup)
-            }
-        }
-
-        val pigGroup = resources.getStringArray(R.array.pig_group_list).toMutableList()
-        pigGroup.add(0, "All")
-        val pigGroupAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, pigGroup)
-        binding.autoCompletepiggroupTextView.setAdapter(pigGroupAdapter)
-        binding.autoCompletepiggroupTextView.setOnItemClickListener { parent, view, position, id ->
-            val selectedGroup = parent.getItemAtPosition(position) as String
-            val selectedBreed = binding.autoCompleteTextView.text.toString()
-            if (selectedBreed == "All" && selectedGroup == "All") {
-                pigsAdapter.showAll()
-            } else {
-                pigsAdapter.filter(selectedBreed, selectedGroup)
+                pigsAdapter.filter(selectedBreed)
             }
         }
 
         binding.fabAddpig.setOnClickListener {
-            findNavController().navigate(R.id.action_pigsFragment_to_addpigFragment)
-        }
-        binding.rvpigs.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = pigsAdapter
+            val action = PigFragmentDirections.actionPigsFragmentToAddpigFragment(stallId!!)
+            findNavController().navigate(action)
         }
     }
 
@@ -145,11 +130,10 @@ class PigFragment : Fragment() {
         expenseItem.month = getMonth(expenseItem.date)
         val expensesRef = firestore.collection("users").document(userId)
             .collection("expenses").document(expenseItem.month)
-            .collection("expenseItems")
 
-        expensesRef.get().addOnSuccessListener { snapshot ->
+        expensesRef.collection("expenseItems").get().addOnSuccessListener { snapshot ->
             val nextId = generateNextId(snapshot)
-            val newExpenseRef = expensesRef.document(nextId)
+            val newExpenseRef = expensesRef.collection("expenseItems").document(nextId)
 
             newExpenseRef.set(expenseItem).addOnSuccessListener {
                 Log.d("PigFragment", "Expense item added successfully with ID: $nextId")
@@ -168,14 +152,14 @@ class PigFragment : Fragment() {
         val month = getMonth(date)
         val incomeRef = firestore.collection("users").document(userId)
             .collection("income").document(month)
-            .collection("incomeItems")
 
-        incomeRef.get().addOnSuccessListener { snapshot ->
+        incomeRef.collection("incomeitems").get().addOnSuccessListener { snapshot ->
             val nextId = generateNextId(snapshot)
-            val newIncomeRef = incomeRef.document(nextId)
+            val newIncomeRef = incomeRef.collection("incomeitems").document(nextId)
 
             newIncomeRef.set(incomeItem).addOnSuccessListener {
                 Log.d("PigFragment", "Income item added successfully with ID: $nextId")
+                removePigAfterSale(incomeItem["tagNo"] as String)
             }.addOnFailureListener { e ->
                 Log.e("PigFragment", "Error adding income item", e)
                 Toast.makeText(requireContext(), "Failed to add income item.", Toast.LENGTH_SHORT).show()
@@ -196,8 +180,9 @@ class PigFragment : Fragment() {
         val user = auth.currentUser
         val userId = user?.uid
 
-        if (userId != null) {
-            firestore.collection("users").document(userId).collection("pigs")
+        if (userId != null && stallId != null) {
+            firestore.collection("users").document(userId).collection("stalls").document(stallId!!)
+                .collection("pigs")
                 .addSnapshotListener { snapshot, exception ->
                     if (exception != null) {
                         Log.e("PigFragment", "Listen failed.", exception)
@@ -240,31 +225,7 @@ class PigFragment : Fragment() {
                 "date" to currentDate
             )
 
-            val incomeRef = firestore.collection("users").document(userId)
-                .collection("income").document(month)
-                .collection("incomeItems")
-
-            incomeRef.get().addOnSuccessListener { snapshot ->
-                val nextId = generateNextId(snapshot)
-                val newIncomeRef = incomeRef.document(nextId)
-
-                newIncomeRef.set(saleDetails).addOnSuccessListener {
-                    val bundle = Bundle().apply {
-                        putString("description", "Selling pig")
-                        putDouble("amount", price)
-                        putString("date", currentDate)
-                        putString("documentId", pig.tag_no)
-                    }
-                    removePig(pig)
-                    Log.d("PigFragment", "Income item added successfully with ID: $nextId")
-                }.addOnFailureListener { e ->
-                    Log.e("PigFragment", "Error adding sale details", e)
-                    Toast.makeText(requireContext(), "Failed to record sale.", Toast.LENGTH_SHORT).show()
-                }
-            }.addOnFailureListener { e ->
-                Log.e("PigFragment", "Error fetching existing income items", e)
-                Toast.makeText(requireContext(), "Failed to fetch income items for ID generation.", Toast.LENGTH_SHORT).show()
-            }
+            addIncome(userId, saleDetails)
         }
     }
 
@@ -272,14 +233,37 @@ class PigFragment : Fragment() {
         val user = auth.currentUser
         val userId = user?.uid
 
-        if (userId != null) {
-            firestore.collection("users").document(userId).collection("pigs")
-                .document(pig.tag_no)
+        if (userId != null && stallId != null) {
+            firestore.collection("users").document(userId).collection("stalls").document(stallId!!)
+                .collection("pigs").document(pig.tag_no)
                 .delete()
                 .addOnSuccessListener {
                     Log.d("PigFragment", "Pig removed successfully with ID: ${pig.tag_no}")
                     pigList.remove(pig)
                     pigsAdapter.notifyDataSetChanged()
+                }
+                .addOnFailureListener { e ->
+                    Log.e("PigFragment", "Error removing pig", e)
+                    Toast.makeText(requireContext(), "Failed to remove pig.", Toast.LENGTH_SHORT).show()
+                }
+        }
+    }
+
+    private fun removePigAfterSale(tagNo: String) {
+        val user = auth.currentUser
+        val userId = user?.uid
+
+        if (userId != null && stallId != null) {
+            firestore.collection("users").document(userId).collection("stalls").document(stallId!!)
+                .collection("pigs").document(tagNo)
+                .delete()
+                .addOnSuccessListener {
+                    Log.d("PigFragment", "Pig removed successfully with ID: $tagNo")
+                    val pig = pigList.find { it.tag_no == tagNo }
+                    pig?.let {
+                        pigList.remove(it)
+                        pigsAdapter.notifyDataSetChanged()
+                    }
                 }
                 .addOnFailureListener { e ->
                     Log.e("PigFragment", "Error removing pig", e)

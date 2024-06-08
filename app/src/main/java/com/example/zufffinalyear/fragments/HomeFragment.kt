@@ -6,17 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.example.zufffinalyear.R
 import com.example.zufffinalyear.databinding.FragmentHomeBinding
-import com.example.zufffinalyear.models.Pigdetails
+import com.example.zufffinalyear.models.UserDetails
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var firestore: FirebaseFirestore
+    private lateinit var databaseReference: DatabaseReference
     private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
@@ -31,54 +33,34 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialize Firestore and FirebaseAuth
-        firestore = FirebaseFirestore.getInstance()
+        // Initialize Firebase Auth and Database reference
         auth = FirebaseAuth.getInstance()
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users")
 
-        // Fetch and display pig breed counts
-        fetchPigBreedCounts()
+        // Fetch and display farm name
+        fetchFarmName()
     }
 
-    private fun fetchPigBreedCounts() {
-        val user = auth.currentUser
-        val userId = user?.uid
-
-        if (userId != null) {
-            firestore.collection("users").document(userId).collection("pigs")
-                .get()
-                .addOnSuccessListener { querySnapshot ->
-                    val breedCounts = processBreedCounts(querySnapshot)
-                    displayBreedCounts(breedCounts)
+    private fun fetchFarmName() {
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            val userId = currentUser.uid
+            databaseReference.child(userId).addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        val userDetails = dataSnapshot.getValue(UserDetails::class.java)
+                        if (userDetails != null) {
+                            val farmNameTextView: TextView = binding.farmNameTextView
+                            farmNameTextView.text = userDetails.farmname
+                        }
+                    } else {
+                        // Handle case where user details are not found
+                    }
                 }
-                .addOnFailureListener { e ->
-                    // Handle failure
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Handle database read error
                 }
-        }
-    }
-
-    private fun processBreedCounts(querySnapshot: QuerySnapshot): Map<String, Int> {
-        val breedCounts = mutableMapOf<String, Int>()
-        for (document in querySnapshot) {
-            val pig = document.toObject(Pigdetails::class.java)
-            val breed = pig.pigbreed
-            breedCounts[breed] = breedCounts.getOrDefault(breed, 0) + 1
-        }
-        return breedCounts
-    }
-
-    private fun displayBreedCounts(breedCounts: Map<String, Int>) {
-        val breedCountLayout = binding.breedCountLayout
-        breedCountLayout.removeAllViews()
-
-        for ((breed, count) in breedCounts) {
-            val textView = TextView(requireContext()).apply {
-                text = getString(R.string.breed_count, breed, count)
-                textSize = 18f
-                setPadding(8, 5, 8, 5)
-                setTextColor(resources.getColor(android.R.color.black, null))
-                setTypeface(null, android.graphics.Typeface.BOLD)
-            }
-            breedCountLayout.addView(textView)
+            })
         }
     }
 }

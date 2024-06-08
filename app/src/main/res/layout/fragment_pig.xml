@@ -46,7 +46,7 @@
             android:textColorHint="@color/black"
             app:hintTextColor="@color/green"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintEnd_toStartOf="@id/guideline_center"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintTop_toTopOf="parent"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
@@ -56,34 +56,6 @@
                 android:layout_height="wrap_content"
                 android:inputType="none"
                 android:backgroundTint="@color/light_colorBackground"
-                android:textColor="@color/black" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/autoCompletepiggroupTextInputLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:layout_marginStart="10dp"
-            app:boxStrokeColor="@color/green"
-            app:boxStrokeWidth="1dp"
-            android:hint="@string/pig_group"
-            app:errorEnabled="true"
-            android:textColorHint="@color/black"
-            app:errorTextColor="@color/light_colorError"
-            app:errorTextAppearance="@color/light_colorError"
-            app:hintTextColor="@color/green"
-            app:layout_constraintStart_toStartOf="@id/guideline_center"
-            app:layout_constraintEnd_toEndOf="@id/guideline_end"
-            app:layout_constraintTop_toTopOf="parent"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
-
-            <AutoCompleteTextView
-                android:id="@+id/autoCompletepiggroupTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/light_colorBackground"
-                android:inputType="none"
                 android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
