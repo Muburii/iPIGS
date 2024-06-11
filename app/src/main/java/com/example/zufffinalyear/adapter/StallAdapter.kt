@@ -5,9 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zufffinalyear.databinding.StallDetailsBinding
 import com.example.zufffinalyear.models.Stalldetails
+
 class StallAdapter(
     private val stalls: List<Stalldetails>,
-    private val itemClickListener: (Stalldetails) -> Unit
+    private val onItemClicked: (Stalldetails) -> Unit,
+    private val onSellClicked: (Stalldetails) -> Unit
 ) : RecyclerView.Adapter<StallAdapter.StallViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StallViewHolder {
@@ -16,17 +18,19 @@ class StallAdapter(
     }
 
     override fun onBindViewHolder(holder: StallViewHolder, position: Int) {
-        val stall = stalls[position]
-        holder.bind(stall, itemClickListener)
+        holder.bind(stalls[position])
     }
 
     override fun getItemCount(): Int = stalls.size
 
-    class StallViewHolder(private val binding: StallDetailsBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(stall: Stalldetails, clickListener: (Stalldetails) -> Unit) {
-            binding.StallNotv.text = stall.stallNo // Assuming you have a TextView with id stallNo in your StallDetailsBinding
-            binding.piggrouptv.text = stall.pigGroup // Assuming you have a TextView with id pigGroup in your StallDetailsBinding
-            binding.root.setOnClickListener { clickListener(stall) }
+    inner class StallViewHolder(private val binding: StallDetailsBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(stall: Stalldetails) {
+            binding.piggrouptv.text = stall.pigGroup
+            binding.StallNotv.text = stall.stallNo
+            binding.noofpigsTextView.text = stall.numberOfPigs.toString()
+
+            binding.root.setOnClickListener { onItemClicked(stall) }
+            binding.buttonSell.setOnClickListener { onSellClicked(stall) }
         }
     }
 }

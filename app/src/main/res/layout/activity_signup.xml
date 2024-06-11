@@ -138,7 +138,7 @@
                 android:id="@+id/farmNameInputlayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/farm_name"
+                android:hint="@string/farm_names"
                 android:layout_marginTop="10dp"
                 android:textColorHint="@color/black"
                 app:hintTextColor="@color/green"

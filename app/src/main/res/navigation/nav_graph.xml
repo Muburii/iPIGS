@@ -8,7 +8,11 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.zufffinalyear.fragments.HomeFragment"
-        android:label="Home" />
+        android:label="Home">
+        <action
+            android:id="@+id/action_homeFragment_to_setupFragment"
+            app:destination="@id/setupFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/feedsFragment"
@@ -57,7 +61,14 @@
         </action>
         <action
             android:id="@+id/action_pigsFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
+            app:destination="@id/profileFragment">
+            <argument
+                android:name="stallId"
+                app:argType="string" />
+            <argument
+                android:name="documentId"
+                app:argType="string" />
+        </action>
     </fragment>
 
     <fragment
@@ -99,7 +110,14 @@
             app:destination="@id/pigsFragment" />
         <action
             android:id="@+id/action_addpigFragment_to_profileFragment"
-            app:destination="@id/pigdetailsFragment" />
+            app:destination="@id/profileFragment">
+            <argument
+                android:name="stallId"
+                app:argType="string" />
+            <argument
+                android:name="documentId"
+                app:argType="string" />
+        </action>
     </fragment>
 
     <fragment
@@ -107,6 +125,12 @@
         android:name="com.example.zufffinalyear.fragments.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile">
+        <argument
+            android:name="stallId"
+            app:argType="string" />
+        <argument
+            android:name="documentId"
+            app:argType="string" />
         <action
             android:id="@+id/action_profileFragment_to_pigsFragment"
             app:destination="@id/pigsFragment" />
@@ -119,6 +143,11 @@
         android:id="@+id/pigdetailsFragment"
         android:name="com.example.zufffinalyear.fragments.PigdetailsFragment"
         android:label="Pig Details">
+        <argument
+            android:name="stallId"
+            app:argType="string" />
+        <argument
+            android:name="documentId"
+            app:argType="string" />
     </fragment>
-
 </navigation>

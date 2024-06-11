@@ -14,10 +14,17 @@ import com.example.zufffinalyear.R
 import com.example.zufffinalyear.adapter.pigsAdapter
 import com.example.zufffinalyear.databinding.FragmentPigBinding
 import com.example.zufffinalyear.models.Expenseitem
+import com.example.zufffinalyear.models.Incomeitem
 import com.example.zufffinalyear.models.Pigdetails
+import com.example.zufffinalyear.models.Stalldetails
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.MutableData
+import com.google.firebase.database.Transaction
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -31,11 +38,12 @@ class PigFragment : Fragment() {
     private lateinit var pigsAdapter: pigsAdapter
     private val pigList = mutableListOf<Pigdetails>()
     private var stallId: String? = null
+    private lateinit var database: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentPigBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -45,6 +53,7 @@ class PigFragment : Fragment() {
 
         firestore = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance().reference
         stallId = arguments?.getString("stallNo") // Get stallNo from arguments
 
         setupRecyclerView()
@@ -79,10 +88,8 @@ class PigFragment : Fragment() {
                 showSellDialog(pig)
             },
             onItemClickListener = { pig ->
-                val bundle = Bundle().apply {
-                    putString("documentId", pig.tag_no)
-                }
-                findNavController().navigate(R.id.action_pigsFragment_to_profileFragment, bundle)
+                val action = PigFragmentDirections.actionPigsFragmentToProfileFragment(stallId!!, pig.tag_no)
+                findNavController().navigate(action)
             }
         )
 
@@ -118,6 +125,7 @@ class PigFragment : Fragment() {
                     removePig(pig)
                     val expenseItem = Expenseitem(description = reason, amount = price, date = date)
                     addExpense(userId, expenseItem)
+                    decrementPigCountInStall(userId, stallId!!)
                 }
                 .addOnFailureListener { e ->
                     Log.e("PigFragment", "Error archiving pig", e)
@@ -127,53 +135,37 @@ class PigFragment : Fragment() {
     }
 
     private fun addExpense(userId: String, expenseItem: Expenseitem) {
-        expenseItem.month = getMonth(expenseItem.date)
-        val expensesRef = firestore.collection("users").document(userId)
-            .collection("expenses").document(expenseItem.month)
-
-        expensesRef.collection("expenseItems").get().addOnSuccessListener { snapshot ->
-            val nextId = generateNextId(snapshot)
-            val newExpenseRef = expensesRef.collection("expenseItems").document(nextId)
-
-            newExpenseRef.set(expenseItem).addOnSuccessListener {
-                Log.d("PigFragment", "Expense item added successfully with ID: $nextId")
-            }.addOnFailureListener { e ->
+        val expenseId = generateNextId()
+        firestore.collection("users").document(userId)
+            .collection("expenses").document(expenseId)
+            .set(expenseItem)
+            .addOnSuccessListener {
+                Log.d("PigFragment", "Expense item added successfully with ID: $expenseId")
+            }
+            .addOnFailureListener { e ->
                 Log.e("PigFragment", "Error adding expense item", e)
                 Toast.makeText(requireContext(), "Failed to add expense item.", Toast.LENGTH_SHORT).show()
             }
-        }.addOnFailureListener { e ->
-            Log.e("PigFragment", "Error fetching existing expense items", e)
-            Toast.makeText(requireContext(), "Failed to add expense item.", Toast.LENGTH_SHORT).show()
-        }
     }
 
-    private fun addIncome(userId: String, incomeItem: Map<String, Any>) {
-        val date = incomeItem["date"] as String
-        val month = getMonth(date)
-        val incomeRef = firestore.collection("users").document(userId)
-            .collection("income").document(month)
-
-        incomeRef.collection("incomeitems").get().addOnSuccessListener { snapshot ->
-            val nextId = generateNextId(snapshot)
-            val newIncomeRef = incomeRef.collection("incomeitems").document(nextId)
-
-            newIncomeRef.set(incomeItem).addOnSuccessListener {
-                Log.d("PigFragment", "Income item added successfully with ID: $nextId")
-                removePigAfterSale(incomeItem["tagNo"] as String)
-            }.addOnFailureListener { e ->
+    private fun addIncome(userId: String, incomeItem: Incomeitem) {
+        val incomeId = generateNextId()
+        firestore.collection("users").document(userId)
+            .collection("income").document(incomeId)
+            .set(incomeItem)
+            .addOnSuccessListener {
+                Log.d("PigFragment", "Income item added successfully with ID: $incomeId")
+                // Optionally, refresh the list or take any additional action needed
+            }
+            .addOnFailureListener { e ->
                 Log.e("PigFragment", "Error adding income item", e)
                 Toast.makeText(requireContext(), "Failed to add income item.", Toast.LENGTH_SHORT).show()
             }
-        }.addOnFailureListener { e ->
-            Log.e("PigFragment", "Error fetching existing income items", e)
-            Toast.makeText(requireContext(), "Failed to add income item.", Toast.LENGTH_SHORT).show()
-        }
     }
 
-    private fun generateNextId(snapshot: QuerySnapshot): String {
-        val existingIds = snapshot.documents.mapNotNull { it.id.toIntOrNull() }
-        val nextId = if (existingIds.isEmpty()) 1 else existingIds.maxOrNull()!! + 1
-        return nextId.toString().padStart(2, '0')
+    private fun generateNextId(): String {
+        val dateFormat = SimpleDateFormat("yyyyMMddHHmmssSSS", Locale.getDefault())
+        return dateFormat.format(Date())
     }
 
     private fun fetchPigsData() {
@@ -217,15 +209,16 @@ class PigFragment : Fragment() {
 
         if (userId != null) {
             val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
-            val month = getMonth(currentDate)
-            val saleDetails = hashMapOf(
-                "description" to "Selling pig",
-                "tagNo" to pig.tag_no,
-                "amount" to price,
-                "date" to currentDate
+            val saleDetails = Incomeitem(
+                description = "Selling pig",
+                tagNo = pig.tag_no,
+                amount = price,
+                date = currentDate
             )
 
             addIncome(userId, saleDetails)
+            removePigAfterSale(pig.tag_no)
+            decrementPigCountInStall(userId, stallId!!)
         }
     }
 
@@ -272,11 +265,48 @@ class PigFragment : Fragment() {
         }
     }
 
-    private fun getMonth(date: String): String {
-        val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-        val parsedDate = dateFormat.parse(date)
-        val monthFormat = SimpleDateFormat("MM-yyyy", Locale.getDefault())
-        return monthFormat.format(parsedDate ?: Date())
+    private fun incrementPigCountInStall(userId: String, stallId: String) {
+        val stallReference = database.child("users").child(userId).child("stalls").child(stallId)
+        stallReference.runTransaction(object : Transaction.Handler {
+            override fun doTransaction(mutableData: MutableData): Transaction.Result {
+                val stall = mutableData.getValue(Stalldetails::class.java)
+                    ?: return Transaction.success(mutableData)
+                stall.numberOfPigs += 1
+                mutableData.value = stall
+                return Transaction.success(mutableData)
+            }
+
+            override fun onComplete(databaseError: DatabaseError?, committed: Boolean, dataSnapshot: DataSnapshot?) {
+                if (databaseError != null) {
+                    Log.e("PigFragment", "Error updating pig count", databaseError.toException())
+                } else {
+                    Log.d("PigFragment", "Pig count updated successfully")
+                }
+            }
+        })
+    }
+
+    private fun decrementPigCountInStall(userId: String, stallId: String) {
+        val stallReference = database.child("users").child(userId).child("stalls").child(stallId)
+        stallReference.runTransaction(object : Transaction.Handler {
+            override fun doTransaction(mutableData: MutableData): Transaction.Result {
+                val stall = mutableData.getValue(Stalldetails::class.java)
+                    ?: return Transaction.success(mutableData)
+                if (stall.numberOfPigs > 0) {
+                    stall.numberOfPigs -= 1
+                }
+                mutableData.value = stall
+                return Transaction.success(mutableData)
+            }
+
+            override fun onComplete(databaseError: DatabaseError?, committed: Boolean, dataSnapshot: DataSnapshot?) {
+                if (databaseError != null) {
+                    Log.e("PigFragment", "Error updating pig count", databaseError.toException())
+                } else {
+                    Log.d("PigFragment", "Pig count updated successfully")
+                }
+            }
+        })
     }
 
     override fun onDestroyView() {

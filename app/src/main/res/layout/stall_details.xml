@@ -6,6 +6,7 @@
     android:layout_margin="16dp"
     app:cardCornerRadius="8dp"
     android:backgroundTint="@color/light_colorBackground">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,7 +34,6 @@
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
-
             <TextView
                 android:id="@+id/piggrouptv"
                 android:layout_width="wrap_content"
@@ -49,7 +49,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:orientation="horizontal">
-
             <TextView
                 android:id="@+id/amountLabel"
                 android:layout_width="wrap_content"
@@ -76,14 +75,14 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:orientation="horizontal">
-
             <TextView
-                android:id="@+id/dateLabel"
+                android:id="@+id/noofpigsLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/No_of_pigs"
@@ -98,9 +97,8 @@
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
-
             <TextView
-                android:id="@+id/dateTextView"
+                android:id="@+id/noofpigsTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -110,36 +108,33 @@
                 android:textStyle="bold" />
         </LinearLayout>
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/tagNoLabel"
-                android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+            <Button
+                android:id="@+id/buttonSell"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/mean_weight"
-                android:textColor="@color/black"
+                android:layout_weight="1"
+                android:layout_marginStart="20dp"
+                android:text="@string/sell"
+                android:backgroundTint="@color/green"
+                android:textColor="@color/light_colorBackground"
                 android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
+                android:onClick="onSellButtonClick"/>
+            <Button
+                android:id="@+id/buttonFeed"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/colon"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-            <TextView
-                android:id="@+id/tagNoTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="@string/mean_weight"
-                android:textColor="@color/black"
+                android:layout_weight="1"
+                android:layout_marginStart="20dp"
+                android:text="@string/feeding"
+                android:backgroundTint="@color/green"
+                android:textColor="@color/light_colorBackground"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:onClick="onFeedButtonClick"/>
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

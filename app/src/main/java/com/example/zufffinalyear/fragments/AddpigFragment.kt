@@ -14,6 +14,7 @@ import com.example.zufffinalyear.databinding.FragmentAddpigBinding
 import com.example.zufffinalyear.models.AutocompleteValidator
 import com.example.zufffinalyear.models.Pigdetails
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Calendar
 
@@ -21,6 +22,7 @@ class AddpigFragment : Fragment() {
 
     private lateinit var binding: FragmentAddpigBinding
     private lateinit var firestore: FirebaseFirestore
+    private lateinit var database: FirebaseDatabase
     private lateinit var auth: FirebaseAuth
     private val args: AddpigFragmentArgs by navArgs()
     private var addedPigDocumentId: String? = null
@@ -36,6 +38,7 @@ class AddpigFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         firestore = FirebaseFirestore.getInstance()
+        database = FirebaseDatabase.getInstance()
         auth = FirebaseAuth.getInstance()
 
         setupDropdowns()
@@ -212,6 +215,7 @@ class AddpigFragment : Fragment() {
                 .collection("pigs").document(documentId) // Set the document ID to tag_no
                 .set(pigdetails)
                 .addOnSuccessListener {
+                    updateStallPigCount(args.stallNo, 1)
                     addedPigDocumentId = documentId
                     clearInputs()
                     navigateToPigFragment()
@@ -219,6 +223,19 @@ class AddpigFragment : Fragment() {
                 .addOnFailureListener { e ->
                     binding.tagNoInputLayout.error = "Failed to save data: ${e.message}"
                 }
+        }
+    }
+
+    private fun updateStallPigCount(stallNo: String, delta: Int) {
+        val user = auth.currentUser
+        val userId = user?.uid
+
+        if (userId != null) {
+            val stallReference = database.getReference("users").child(userId).child("stalls").child(stallNo)
+            stallReference.child("numberOfPigs").get().addOnSuccessListener { snapshot ->
+                val currentCount = snapshot.getValue(Int::class.java) ?: 0
+                stallReference.child("numberOfPigs").setValue(currentCount + delta)
+            }
         }
     }
 

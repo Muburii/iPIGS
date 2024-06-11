@@ -17,6 +17,8 @@ class PigdetailsFragment : Fragment() {
     private lateinit var binding: FragmentPigdetailsBinding
     private lateinit var firestore: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
+    private var stallId: String? = null
+    private var documentId: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,23 +33,29 @@ class PigdetailsFragment : Fragment() {
         firestore = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
 
+        stallId = arguments?.getString("stallId")
+        documentId = arguments?.getString("documentId")
+
         fetchPigDetails()
 
         binding.updateButton.setOnClickListener {
             navigateToUpdateDetails()
         }
     }
+
     private fun fetchPigDetails() {
         val user = auth.currentUser
         val userId = user?.uid
 
-        if (userId != null) {
-            firestore.collection("users").document(userId).collection("pigs")
+        if (userId != null && stallId != null && documentId != null) {
+            firestore.collection("users").document(userId).collection("stalls")
+                .document(stallId!!).collection("pigs")
+                .document(documentId!!)
                 .get()
-                .addOnSuccessListener { documents ->
-                    for (document in documents) {
-                        val pigDetails = document.toObject(Pigdetails::class.java)
-                        displayPigDetails(pigDetails, document.id)
+                .addOnSuccessListener { document ->
+                    val pigDetails = document.toObject(Pigdetails::class.java)
+                    if (pigDetails != null) {
+                        displayPigDetails(pigDetails)
                     }
                 }
                 .addOnFailureListener { exception ->
@@ -55,7 +63,8 @@ class PigdetailsFragment : Fragment() {
                 }
         }
     }
-    private fun displayPigDetails(pigDetails: Pigdetails, documentId: String) {
+
+    private fun displayPigDetails(pigDetails: Pigdetails) {
         binding.apply {
             tagNotv.text = pigDetails.tag_no
             pigbreedtv.text = pigDetails.pigbreed
@@ -69,8 +78,13 @@ class PigdetailsFragment : Fragment() {
             fatherstv.text = pigDetails.fatherstagno
         }
     }
+
     private fun navigateToUpdateDetails() {
-        val navController = parentFragment?.findNavController()
-        navController?.navigate(R.id.action_profileFragment_to_addpigFragment)
+        val bundle = Bundle().apply {
+            putString("stallNo", stallId)
+            putString("documentId", documentId)
+        }
+        findNavController().navigate(R.id.action_profileFragment_to_addpigFragment, bundle)
     }
 }
+

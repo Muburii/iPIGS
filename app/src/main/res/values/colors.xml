@@ -8,4 +8,8 @@
     <color name="light_colorSurface">#FFFFFF</color>
     <color name="light_colorSecondary">#FF4081</color>
     <color name="light_colorTertiary">#FFC107</color>
+    <color name="color1">#FFA726</color>
+    <color name="color2">#66BB6A</color>
+    <color name="color3">#29B6F6</color>
+    <color name="color4">#AB47BC</color>
 </resources>

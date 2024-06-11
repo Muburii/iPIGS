@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.zufffinalyear.fragments.ExpenseFragment
-import com.example.zufffinalyear.fragments.IncomeFragment
+import com.example.zufffinalyear.fragments.SalesFragment
 
 class transactionAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) : FragmentStateAdapter(fragmentManager, lifecycle) {
 
@@ -15,7 +15,7 @@ class transactionAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle)
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> IncomeFragment()
+            0 -> SalesFragment()
             1 -> ExpenseFragment()
             else -> throw IllegalStateException("Unexpected position: $position")
         }

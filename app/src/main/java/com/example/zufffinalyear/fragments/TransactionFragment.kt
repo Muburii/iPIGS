@@ -28,9 +28,8 @@ class TransactionFragment : Fragment() {
 
         val adapter = transactionAdapter(childFragmentManager, lifecycle)
         binding.transactionviewpager.adapter = adapter
-
         // Define the tab titles
-        val tabTitles = arrayOf(getString(R.string.income), getString(R.string.expense))
+        val tabTitles = arrayOf(getString(R.string.sales), getString(R.string.expense))
 
         TabLayoutMediator(binding.tablayout, binding.transactionviewpager) { tab, position ->
             tab.text = tabTitles[position]

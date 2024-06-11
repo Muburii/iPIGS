@@ -18,7 +18,7 @@
         <item>Large White</item>
         <item>Duroc</item>
         <item>Hybrid Gilt</item>
-        <item>Harmpshire</item>
+        <item>Hampshire</item>
     </string-array>
     <string-array name="Reason_for_archiving_list">
         <item>Lost Pig</item>
@@ -65,17 +65,17 @@
     <string name="pig_group">Pig Group</string>
     <string name="already_registered">Already Registered, Sign In!</string>
     <string name="username_hint">Username</string>
-    <string name="no_account_message">Don/t have an account? Register here.</string>
+    <string name="no_account_message">Don’t have an account? Register here.</string>
     <string name="ipigs">Ipigs</string>
     <string name="save">Save pig</string>
     <string name="delete">Delete</string>
     <string name="name">Name</string>
     <string name="Tag_no">Tag no.*</string>
     <string name="Litter_no">Litter No.</string>
-    <string name="Mothers_tag_no">Mother/s Tag No</string>
-    <string name="Fathers_tag_no">Father/s Tag No</string>
+    <string name="Mothers_tag_no">Mother’s Tag No</string>
+    <string name="Fathers_tag_no">Father’s Tag No</string>
     <string name="weight">Weight(kg)</string>
-    <string name="pigs_offspring">Pig/s offspring</string>
+    <string name="pigs_offspring">Pig’s offspring</string>
     <string name="date_of_birth">Date of birth</string>
     <string name="Date_of_entry_on_the_farm">Date of entry on the farm.</string>
     <string name="Pigs">Pigs</string>
@@ -94,16 +94,24 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_pig">Add pig</string>
     <string name="tag_no">Tag No</string>
+    <string name="farm_names">Farm Name</string>
     <string name="farm_name">Farm Name: %s</string>
     <string name="forgotpassword">Forgot password?</string>
-    <string name="income">INCOME</string>
+    <string name="sales">SALES</string>
+    <string name="add_feeds">ADDITIONS</string>
+    <string name="reduce_feeds">Reduction</string>
+    <string name="add_pigfeeds">Add Feed</string>
+    <string name="reduce_pigfeeds">Reduce Feed</string>
     <string name="expense">EXPENSE</string>
+    <string name="massevents">MASS EVENTS</string>
+    <string name="individualevents">INDIVIDUAL EVENTS</string>
     <string name="breed_count">%s: %d</string>
     <string name="age">Age</string>
     <string name="colon">:</string>
     <string name="sell">Sell</string>
+    <string name="sellpig">Sell Pigs</string>
     <string name="remove">Remove</string>
-    <string name="Currentpigprice">Current Market Price (Ksh)</string>
+    <string name="Currentpigprice">Current Pig Market Price (Ksh)</string>
     <string name="Predictedpigprice">Predicted Market Price (Ksh)</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
@@ -111,7 +119,7 @@
     <string name="Amount">Amount</string>
     <string name="Date">Date</string>
     <string name="equals">=</string>
-    <string name="total_income_label">Total Income:</string>
+    <string name="total_sales_label">Total Sales:</string>
     <string name="total_income">0.00</string>
     <string name="refresh">Refresh</string>
     <string name="Details">Details</string>
@@ -132,4 +140,31 @@
     <string name="No_of_pigs">No of Pigs</string>
     <string name="mean_weight">Mean weight</string>
     <string name="total_expenselabel">Total Expenses</string>
+    <string name="addEvent">Add Events</string>
+    <string name="Continue">Continue</string>
+    <string name="feeding">Feeding</string>
+    <string name="Select_Type_of_Feed">Select type of Feed</string>
+    <string-array name="Feed_list">
+        <item>Creep Feed</item>
+        <item>Weaner Feed</item>
+        <item>Grower Feed</item>
+        <item>Finisher</item>
+    </string-array>
+    <string-array name="Reason_for_reducing_list">
+        <item>Spoilt/Expired</item>
+        <item>Lost/Stolen</item>
+        <item>Other</item>
+        <item>Consumed</item>
+    </string-array>
+    <string name="Date_of_purchased">Date of Purchase</string>
+    <string name="Reason_for_reducing">Reason for reducing</string>
+    <string name="quantity_reduced">Quantity reduced in kgs</string>
+    <string name="cost_of_feeds_reduced">Cost of Feeds Reduced per kg</string>
+    <string name="Date_of_Reduction">Date of Reduction</string>
+    <string name="add_reduction">Reduction</string>
+    <string name="add_feed">Add Feed</string>
+    <string name="quantity">Quantity added in kgs</string>
+    <string name="cost_of_feeds_added">Cost of feeds Added per kg</string>
+    <string name="cost_per_kg">Cost per kg</string>
+    <string name="cost_of_feeds">Cost of Feeds</string>
 </resources>

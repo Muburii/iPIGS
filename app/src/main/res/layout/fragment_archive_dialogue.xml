@@ -53,7 +53,7 @@
                 android:id="@+id/dateofbirthEditText"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:inputType="textEmailAddress"
+                android:inputType="none"
                 android:textColor="@color/black"
                 app:strokeColor="@color/green"/>
         </com.google.android.material.textfield.TextInputLayout>
